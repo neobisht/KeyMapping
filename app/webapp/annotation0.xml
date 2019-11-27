@@ -1,0 +1,33 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="/srv_api/odata/v2/KeyMapService/$metadata">
+		<edmx:Include Alias="Metadata" Namespace="KeyMapService"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="KeyMapping.app.annotation0.KeyMapService">
+			<Annotations Target="Metadata.KeyMapping">
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="to_BusinessSystem/BusinessSystem"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;BUSINESS_SYSTEM}"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="to_ObjectIdentifierTypeCode/to_ObjectTypeCode/ObjectTypeCode"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;OBJECT_TYPE_CODE}"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="to_ObjectIdentifierTypeCode/ObjectIdentifierTypeCode"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;OBJECT_IDENTIFIER_TYPE_CODE}"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="KeyValue"/>
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

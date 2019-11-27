@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml"
+		xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+		<edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+	</edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="KeyMapService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+				<EntitySet Name="BusinessSystem" EntityType="KeyMapService.BusinessSystem"/>
+				<EntitySet Name="KeyMapping" EntityType="KeyMapService.KeyMapping"/>
+				<EntitySet Name="ObjectIdentifierTypeCode" EntityType="KeyMapService.ObjectIdentifierTypeCode"/>
+				<EntitySet Name="ObjectTypeCode" EntityType="KeyMapService.ObjectTypeCode"/>
+				<AssociationSet Name="KeyMapping_to_ObjectTypeCode" Association="KeyMapService.KeyMapping_to_ObjectTypeCode">
+					<End Role="KeyMapping" EntitySet="KeyMapping"/>
+					<End Role="ObjectTypeCode" EntitySet="ObjectTypeCode"/>
+				</AssociationSet>
+				<AssociationSet Name="KeyMapping_to_ObjectIdentifierTypeCode" Association="KeyMapService.KeyMapping_to_ObjectIdentifierTypeCode">
+					<End Role="KeyMapping" EntitySet="KeyMapping"/>
+					<End Role="ObjectIdentifierTypeCode" EntitySet="ObjectIdentifierTypeCode"/>
+				</AssociationSet>
+				<AssociationSet Name="KeyMapping_to_BusinessSystem" Association="KeyMapService.KeyMapping_to_BusinessSystem">
+					<End Role="KeyMapping" EntitySet="KeyMapping"/>
+					<End Role="BusinessSystem" EntitySet="BusinessSystem"/>
+				</AssociationSet>
+				<AssociationSet Name="ObjectIdentifierTypeCode_to_ObjectTypeCode" Association="KeyMapService.ObjectIdentifierTypeCode_to_ObjectTypeCode">
+					<End Role="ObjectIdentifierTypeCode" EntitySet="ObjectIdentifierTypeCode"/>
+					<End Role="ObjectTypeCode" EntitySet="ObjectTypeCode"/>
+				</AssociationSet>
+			</EntityContainer>
+			<EntityType Name="BusinessSystem">
+				<Key>
+					<PropertyRef Name="Id"/>
+				</Key>
+				<Property Name="Id" Type="Edm.Guid" Nullable="false"/>
+				<Property Name="BusinessSystem" Type="Edm.String" MaxLength="60"/>
+			</EntityType>
+			<EntityType Name="KeyMapping">
+				<Key>
+					<PropertyRef Name="Id"/>
+				</Key>
+				<Property Name="Id" Type="Edm.Guid" Nullable="false"/>
+				<Property Name="ObjectTypeCode" Type="Edm.Guid"/>
+				<Property Name="OITC" Type="Edm.Guid"/>
+				<Property Name="BusinessSystem" Type="Edm.Guid"/>
+				<Property Name="KeyValue" Type="Edm.String"/>
+				<Property Name="MappingGrpId" Type="Edm.Guid"/>
+				<NavigationProperty Name="to_ObjectTypeCode" Relationship="KeyMapService.KeyMapping_to_ObjectTypeCode" FromRole="KeyMapping"
+					ToRole="ObjectTypeCode"/>
+				<NavigationProperty Name="to_ObjectIdentifierTypeCode" Relationship="KeyMapService.KeyMapping_to_ObjectIdentifierTypeCode"
+					FromRole="KeyMapping" ToRole="ObjectIdentifierTypeCode"/>
+				<NavigationProperty Name="to_BusinessSystem" Relationship="KeyMapService.KeyMapping_to_BusinessSystem" FromRole="KeyMapping"
+					ToRole="BusinessSystem"/>
+			</EntityType>
+			<EntityType Name="ObjectIdentifierTypeCode">
+				<Key>
+					<PropertyRef Name="Id"/>
+				</Key>
+				<Property Name="Id" Type="Edm.Guid" Nullable="false"/>
+				<Property Name="ObjectTypeCode" Type="Edm.Guid"/>
+				<Property Name="ObjectIdentifierTypeCode" Type="Edm.String" MaxLength="10"/>
+				<NavigationProperty Name="to_ObjectTypeCode" Relationship="KeyMapService.ObjectIdentifierTypeCode_to_ObjectTypeCode"
+					FromRole="ObjectIdentifierTypeCode" ToRole="ObjectTypeCode"/>
+			</EntityType>
+			<EntityType Name="ObjectTypeCode">
+				<Key>
+					<PropertyRef Name="Id"/>
+				</Key>
+				<Property Name="Id" Type="Edm.Guid" Nullable="false"/>
+				<Property Name="ObjectTypeCode" Type="Edm.String" MaxLength="10"/>
+			</EntityType>
+			<Association Name="KeyMapping_to_ObjectTypeCode">
+				<End Role="KeyMapping" Type="KeyMapService.KeyMapping" Multiplicity="*"/>
+				<End Role="ObjectTypeCode" Type="KeyMapService.ObjectTypeCode" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="ObjectTypeCode">
+						<PropertyRef Name="Id"/>
+					</Principal>
+					<Dependent Role="KeyMapping">
+						<PropertyRef Name="ObjectTypeCode"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="KeyMapping_to_ObjectIdentifierTypeCode">
+				<End Role="KeyMapping" Type="KeyMapService.KeyMapping" Multiplicity="*"/>
+				<End Role="ObjectIdentifierTypeCode" Type="KeyMapService.ObjectIdentifierTypeCode" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="ObjectIdentifierTypeCode">
+						<PropertyRef Name="Id"/>
+					</Principal>
+					<Dependent Role="KeyMapping">
+						<PropertyRef Name="OITC"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="KeyMapping_to_BusinessSystem">
+				<End Role="KeyMapping" Type="KeyMapService.KeyMapping" Multiplicity="*"/>
+				<End Role="BusinessSystem" Type="KeyMapService.BusinessSystem" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="BusinessSystem">
+						<PropertyRef Name="Id"/>
+					</Principal>
+					<Dependent Role="KeyMapping">
+						<PropertyRef Name="BusinessSystem"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="ObjectIdentifierTypeCode_to_ObjectTypeCode">
+				<End Role="ObjectIdentifierTypeCode" Type="KeyMapService.ObjectIdentifierTypeCode" Multiplicity="*"/>
+				<End Role="ObjectTypeCode" Type="KeyMapService.ObjectTypeCode" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="ObjectTypeCode">
+						<PropertyRef Name="Id"/>
+					</Principal>
+					<Dependent Role="ObjectIdentifierTypeCode">
+						<PropertyRef Name="ObjectTypeCode"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Annotations Target="KeyMapService.EntityContainer/BusinessSystem" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Capabilities.DeleteRestrictions">
+					<Record Type="Capabilities.DeleteRestrictionsType">
+						<PropertyValue Property="Deletable" Bool="false"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.InsertRestrictions">
+					<Record Type="Capabilities.InsertRestrictionsType">
+						<PropertyValue Property="Insertable" Bool="true"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.UpdateRestrictions">
+					<Record Type="Capabilities.UpdateRestrictionsType">
+						<PropertyValue Property="Updatable" Bool="true"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="KeyMapService.EntityContainer/KeyMapping" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Capabilities.DeleteRestrictions">
+					<Record Type="Capabilities.DeleteRestrictionsType">
+						<PropertyValue Property="Deletable" Bool="false"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.InsertRestrictions">
+					<Record Type="Capabilities.InsertRestrictionsType">
+						<PropertyValue Property="Insertable" Bool="true"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.UpdateRestrictions">
+					<Record Type="Capabilities.UpdateRestrictionsType">
+						<PropertyValue Property="Updatable" Bool="true"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="KeyMapService.EntityContainer/ObjectIdentifierTypeCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Capabilities.DeleteRestrictions">
+					<Record Type="Capabilities.DeleteRestrictionsType">
+						<PropertyValue Property="Deletable" Bool="false"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.InsertRestrictions">
+					<Record Type="Capabilities.InsertRestrictionsType">
+						<PropertyValue Property="Insertable" Bool="true"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.UpdateRestrictions">
+					<Record Type="Capabilities.UpdateRestrictionsType">
+						<PropertyValue Property="Updatable" Bool="true"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="KeyMapService.EntityContainer/ObjectTypeCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Capabilities.DeleteRestrictions">
+					<Record Type="Capabilities.DeleteRestrictionsType">
+						<PropertyValue Property="Deletable" Bool="false"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.InsertRestrictions">
+					<Record Type="Capabilities.InsertRestrictionsType">
+						<PropertyValue Property="Insertable" Bool="true"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.UpdateRestrictions">
+					<Record Type="Capabilities.UpdateRestrictionsType">
+						<PropertyValue Property="Updatable" Bool="true"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,387 @@
+{
+  "namespace": "com.sap.mdm.keymap",
+  "definitions": {
+    "KeyMapService": {
+      "kind": "service",
+      "@source": "srv/cat-service.cds"
+    },
+    "KeyMapService.BusinessSystem": {
+      "kind": "entity",
+      "@Capabilities.DeleteRestrictions.Deletable": false,
+      "@Capabilities.InsertRestrictions.Insertable": true,
+      "@Capabilities.UpdateRestrictions.Updatable": true,
+      "@cds.persistence.name": "KEYMAPSERVICE_BUSINESSSYSTEM",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "com.sap.mdm.keymap.BusinessSystem"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "Id": {
+          "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "BusinessSystem": {
+          "@cds.persistence.name": "BUSINESSSYSTEM",
+          "type": "cds.String",
+          "length": 60
+        }
+      },
+      "$syntax": "projection"
+    },
+    "KeyMapService.KeyMapping": {
+      "kind": "entity",
+      "@Capabilities.DeleteRestrictions.Deletable": false,
+      "@Capabilities.InsertRestrictions.Insertable": true,
+      "@Capabilities.UpdateRestrictions.Updatable": true,
+      "@cds.persistence.name": "KEYMAPSERVICE_KEYMAPPING",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "com.sap.mdm.keymap.KeyMapping"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "Id": {
+          "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "ObjectTypeCode": {
+          "@cds.persistence.name": "OBJECTTYPECODE",
+          "type": "cds.UUID"
+        },
+        "OITC": {
+          "@cds.persistence.name": "OITC",
+          "type": "cds.UUID"
+        },
+        "BusinessSystem": {
+          "@cds.persistence.name": "BUSINESSSYSTEM",
+          "type": "cds.UUID"
+        },
+        "KeyValue": {
+          "@cds.persistence.name": "KEYVALUE",
+          "type": "cds.String"
+        },
+        "MappingGrpId": {
+          "@cds.persistence.name": "MAPPINGGRPID",
+          "type": "cds.UUID"
+        },
+        "to_ObjectTypeCode": {
+          "@cds.persistence.name": "TO_OBJECTTYPECODE",
+          "type": "cds.Association",
+          "target": "KeyMapService.ObjectTypeCode",
+          "on": [
+            {
+              "ref": [
+                "to_ObjectTypeCode",
+                "Id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ObjectTypeCode"
+              ]
+            }
+          ]
+        },
+        "to_ObjectIdentifierTypeCode": {
+          "@cds.persistence.name": "TO_OBJECTIDENTIFIERTYPECODE",
+          "type": "cds.Association",
+          "target": "KeyMapService.ObjectIdentifierTypeCode",
+          "on": [
+            {
+              "ref": [
+                "to_ObjectIdentifierTypeCode",
+                "Id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "OITC"
+              ]
+            }
+          ]
+        },
+        "to_BusinessSystem": {
+          "@cds.persistence.name": "TO_BUSINESSSYSTEM",
+          "type": "cds.Association",
+          "target": "KeyMapService.BusinessSystem",
+          "on": [
+            {
+              "ref": [
+                "to_BusinessSystem",
+                "Id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "BusinessSystem"
+              ]
+            }
+          ]
+        }
+      },
+      "$syntax": "projection"
+    },
+    "KeyMapService.ObjectIdentifierTypeCode": {
+      "kind": "entity",
+      "@Capabilities.DeleteRestrictions.Deletable": false,
+      "@Capabilities.InsertRestrictions.Insertable": true,
+      "@Capabilities.UpdateRestrictions.Updatable": true,
+      "@cds.persistence.name": "KEYMAPSERVICE_OBJECTIDENTIFIERTYPECODE",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "com.sap.mdm.keymap.ObjectIdentifierTypeCode"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "Id": {
+          "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "ObjectTypeCode": {
+          "@cds.persistence.name": "OBJECTTYPECODE",
+          "type": "cds.UUID"
+        },
+        "ObjectIdentifierTypeCode": {
+          "@cds.persistence.name": "OBJECTIDENTIFIERTYPECODE",
+          "type": "cds.String",
+          "length": 10
+        },
+        "to_ObjectTypeCode": {
+          "@cds.persistence.name": "TO_OBJECTTYPECODE",
+          "type": "cds.Association",
+          "target": "KeyMapService.ObjectTypeCode",
+          "on": [
+            {
+              "ref": [
+                "to_ObjectTypeCode",
+                "Id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ObjectTypeCode"
+              ]
+            }
+          ]
+        }
+      },
+      "$syntax": "projection"
+    },
+    "KeyMapService.ObjectTypeCode": {
+      "kind": "entity",
+      "@Capabilities.DeleteRestrictions.Deletable": false,
+      "@Capabilities.InsertRestrictions.Insertable": true,
+      "@Capabilities.UpdateRestrictions.Updatable": true,
+      "@cds.persistence.name": "KEYMAPSERVICE_OBJECTTYPECODE",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "com.sap.mdm.keymap.ObjectTypeCode"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "Id": {
+          "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "ObjectTypeCode": {
+          "@cds.persistence.name": "OBJECTTYPECODE",
+          "type": "cds.String",
+          "length": 10
+        }
+      },
+      "$syntax": "projection"
+    },
+    "com.sap.mdm.keymap.BusinessSystem": {
+      "kind": "entity",
+      "@cds.persistence.name": "COM_SAP_MDM_KEYMAP_BUSINESSSYSTEM",
+      "elements": {
+        "Id": {
+          "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "BusinessSystem": {
+          "@cds.persistence.name": "BUSINESSSYSTEM",
+          "type": "cds.String",
+          "length": 60
+        }
+      }
+    },
+    "com.sap.mdm.keymap.KeyMapping": {
+      "kind": "entity",
+      "@cds.persistence.name": "COM_SAP_MDM_KEYMAP_KEYMAPPING",
+      "elements": {
+        "Id": {
+          "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "ObjectTypeCode": {
+          "@cds.persistence.name": "OBJECTTYPECODE",
+          "type": "cds.UUID"
+        },
+        "OITC": {
+          "@cds.persistence.name": "OITC",
+          "type": "cds.UUID"
+        },
+        "BusinessSystem": {
+          "@cds.persistence.name": "BUSINESSSYSTEM",
+          "type": "cds.UUID"
+        },
+        "KeyValue": {
+          "@cds.persistence.name": "KEYVALUE",
+          "type": "cds.String"
+        },
+        "MappingGrpId": {
+          "@cds.persistence.name": "MAPPINGGRPID",
+          "type": "cds.UUID"
+        },
+        "to_ObjectTypeCode": {
+          "@cds.persistence.name": "TO_OBJECTTYPECODE",
+          "type": "cds.Association",
+          "target": "com.sap.mdm.keymap.ObjectTypeCode",
+          "on": [
+            {
+              "ref": [
+                "to_ObjectTypeCode",
+                "Id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ObjectTypeCode"
+              ]
+            }
+          ]
+        },
+        "to_ObjectIdentifierTypeCode": {
+          "@cds.persistence.name": "TO_OBJECTIDENTIFIERTYPECODE",
+          "type": "cds.Association",
+          "target": "com.sap.mdm.keymap.ObjectIdentifierTypeCode",
+          "on": [
+            {
+              "ref": [
+                "to_ObjectIdentifierTypeCode",
+                "Id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "OITC"
+              ]
+            }
+          ]
+        },
+        "to_BusinessSystem": {
+          "@cds.persistence.name": "TO_BUSINESSSYSTEM",
+          "type": "cds.Association",
+          "target": "com.sap.mdm.keymap.BusinessSystem",
+          "on": [
+            {
+              "ref": [
+                "to_BusinessSystem",
+                "Id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "BusinessSystem"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "com.sap.mdm.keymap.ObjectIdentifierTypeCode": {
+      "kind": "entity",
+      "@cds.persistence.name": "COM_SAP_MDM_KEYMAP_OBJECTIDENTIFIERTYPECODE",
+      "elements": {
+        "Id": {
+          "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "ObjectTypeCode": {
+          "@cds.persistence.name": "OBJECTTYPECODE",
+          "type": "cds.UUID"
+        },
+        "ObjectIdentifierTypeCode": {
+          "@cds.persistence.name": "OBJECTIDENTIFIERTYPECODE",
+          "type": "cds.String",
+          "length": 10
+        },
+        "to_ObjectTypeCode": {
+          "@cds.persistence.name": "TO_OBJECTTYPECODE",
+          "type": "cds.Association",
+          "target": "com.sap.mdm.keymap.ObjectTypeCode",
+          "on": [
+            {
+              "ref": [
+                "to_ObjectTypeCode",
+                "Id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ObjectTypeCode"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "com.sap.mdm.keymap.ObjectTypeCode": {
+      "kind": "entity",
+      "@cds.persistence.name": "COM_SAP_MDM_KEYMAP_OBJECTTYPECODE",
+      "elements": {
+        "Id": {
+          "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "ObjectTypeCode": {
+          "@cds.persistence.name": "OBJECTTYPECODE",
+          "type": "cds.String",
+          "length": 10
+        }
+      }
+    }
+  },
+  "version": {
+    "csn": "1.0"
+  },
+  "meta": {
+    "creator": "CDS Compiler v1.20.3"
+  },
+  "$version": "1.0",
+  "@sql_mapping": "plain"
+}
